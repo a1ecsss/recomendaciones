@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
@@ -11,6 +12,8 @@ export interface Series {
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -45,10 +48,11 @@ export class HomeComponent implements OnInit {
     this.error = null;
 
     try {
-      // Simulacion de llamda a api con delay
+      // Simulate API call with a delay
+      // Replace this with your actual API endpoint later
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      // demostrtacion con datos random
+      // Mock data for demonstration
       if (seriesName.toLowerCase() === 'stranger things') {
         return {
           id: 1,
@@ -69,7 +73,7 @@ export class HomeComponent implements OnInit {
         };
       }
 
-      //sin resultados
+      // No results found
       return null;
     } catch (err) {
       this.error = 'Failed to fetch series details. Please try again.';
