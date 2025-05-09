@@ -1,7 +1,7 @@
 <div class="series-container">
   <div class="search-section">
     <h1>Series Explorer</h1>
-    <p class="subtitle">Search for your favorite TV series</p>
+    <p class="subtitle">Busca tus Series de TV favoritas</p>
 
     <div class="search-box">
       <input
@@ -16,14 +16,14 @@
       </button>
     </div>
 
-    <p class="hint">Try searching for: Stranger Things, Breaking Bad, or The Crown</p>
+    <p class="hint">Intenta buscar series como Arcane o Invincible</p>
   </div>
 
   <div class="results-section" *ngIf="hasSearched">
     <!-- Loading state -->
     <div class="loading-container" *ngIf="isLoading">
       <div class="spinner"></div>
-      <p>Searching for series details...</p>
+      <p>Buscando...</p>
     </div>
 
     <!-- Error state -->
@@ -46,7 +46,7 @@
 
     <!-- No results -->
     <div class="no-results" *ngIf="!isLoading && !series && !error">
-      <p>No series found with that name. Please try another search.</p>
+      <p>No se encontraron Series para recomendar. Intenta con otra serie</p>
     </div>
   </div>
 </div>
