@@ -1,58 +1,72 @@
-CREATE (s:Series {
-    seriesId: '1',
-    name: 'Breaking Bad',
-    rating: 9.5,
-    numOfRatings: 2000000,  // Este es un valor aproximado de calificaciones en IMDb.
-    description: 'A high school chemistry teacher turned methamphetamine producer teams up with a former student to produce and sell crystal meth.',
-    year: 2008,
-    duration: 47,
-    totalSeasons: 5,
-    totalEpisodes: 62
-})
+// Crear la serie (MERGE para evitar duplicados)
+MERGE (s:Series {seriesId: '12', name: 'Breaking Bad'})
+ON CREATE SET s.rating = 9.5,
+              s.numOfRatings = 2000000,
+              s.description = 'Walter White, un profesor de química de secundaria diagnosticado con cáncer de pulmón, se adentra en el mundo del crimen al producir y vender metanfetamina para asegurar el futuro financiero de su familia.',
+              s.year = 2008,
+              s.duration = 47,
+              s.totalSeasons = 5,
+              s.totalEpisodes = 62,
+              s.image = 'breaking_bad.png'
 
-//creacion de director
-CREATE (d1:Director {directorId: '1', name: 'Vince Gilligan', birthDate: '1967-02-10', nationality: 'American'})
+// MERGE de géneros
+MERGE (g1:Genre {name: 'Crime'})
+MERGE (g2:Genre {name: 'Drama'})
+MERGE (g3:Genre {name: 'Thriller'})
+MERGE (g4:Genre {name: 'Neo-Western'})
+MERGE (g5:Genre {name: 'Black Comedy'})
 
-//creacion de actores
-CREATE (a1:Actor {actorId: '1', name: 'Bryan Cranston', birthDate: '1956-03-07', nationality: 'American'})
-CREATE (a2:Actor {actorId: '2', name: 'Aaron Paul', birthDate: '1979-08-27', nationality: 'American'})
+// Relacionar géneros
+MERGE (s)-[:BELONGS_TO]->(g1)
+MERGE (s)-[:BELONGS_TO]->(g2)
+MERGE (s)-[:BELONGS_TO]->(g3)
+MERGE (s)-[:BELONGS_TO]->(g4)
+MERGE (s)-[:BELONGS_TO]->(g5)
 
-//creacion de ratings
-CREATE (r1:Rating {ratingId: '1', ratingValue: 9.5, ratingSource: 'User', timestamp: '2023-05-10', ratingDescription: 'An absolute masterpiece!'})
-CREATE (r2:Rating {ratingId: '2', ratingValue: 9.5, ratingSource: 'Critic', timestamp: '2023-05-12', ratingDescription: 'A groundbreaking series that redefined TV.'})
+// MERGE de tags
+MERGE (t1:Tag {name: 'Methamphetamine'})
+MERGE (t2:Tag {name: 'Antihero'})
+MERGE (t3:Tag {name: 'Drug Cartel'})
+MERGE (t4:Tag {name: 'Chemistry'})
+MERGE (t5:Tag {name: 'Moral Ambiguity'})
+MERGE (t6:Tag {name: 'Cancer'})
+MERGE (t7:Tag {name: 'Albuquerque'})
 
+// Relacionar tags
+MERGE (s)-[:HAS_TAG]->(t1)
+MERGE (s)-[:HAS_TAG]->(t2)
+MERGE (s)-[:HAS_TAG]->(t3)
+MERGE (s)-[:HAS_TAG]->(t4)
+MERGE (s)-[:HAS_TAG]->(t5)
+MERGE (s)-[:HAS_TAG]->(t6)
+MERGE (s)-[:HAS_TAG]->(t7)
 
-//Relacion Entre Genero
-MATCH (s:Series {seriesId: '1'}), (g1:Genre {name: 'Drama'}), (g2:Genre {name: 'Crime'}), (g3:Genre {name: 'Thriller'})
-CREATE (s)-[:BELONGS_TO]->(g1)
-CREATE (s)-[:BELONGS_TO]->(g2)
-CREATE (s)-[:BELONGS_TO]->(g3)
+// MERGE de idioma
+MERGE (l:Language {name: 'English'})
+MERGE (s)-[:IS_IN_LANGUAGE]->(l)
 
-//Relaciones de Tags
-MATCH (s:Series {seriesId: '1'}), (t1:Tag {name: 'Crime'}), (t2:Tag {name: 'Suspense'}), (t3:Tag {name: 'Drug'}), (t4:Tag {name: 'Action'})
-CREATE (s)-[:HAS_TAG]->(t1)
-CREATE (s)-[:HAS_TAG]->(t2)
-CREATE (s)-[:HAS_TAG]->(t3)
-CREATE (s)-[:HAS_TAG]->(t4)
+// MERGE de país
+MERGE (c:Country {name: 'United States'})
+MERGE (s)-[:PRODUCED_IN]->(c)
 
-//Relación de Idiomas
-MATCH (s:Series {seriesId: '1'}), (l1:Language {name: 'English'})
-CREATE (s)-[:IS_IN_LANGUAGE]->(l1)
+// MERGE de director
+MERGE (d:Director {name: 'Vince Gilligan'})
+MERGE (s)-[:DIRECTED_BY]->(d)
 
-//Relación de Paises
-MATCH (s:Series {seriesId: '1'}), (c1:Country {name: 'USA'})
-CREATE (s)-[:PRODUCED_IN]->(c1)
+// MERGE de actores
+MERGE (a1:Actor {name: 'Bryan Cranston'})
+MERGE (a2:Actor {name: 'Aaron Paul'})
+MERGE (a3:Actor {name: 'Anna Gunn'})
+MERGE (a4:Actor {name: 'RJ Mitte'})
+MERGE (a5:Actor {name: 'Dean Norris'})
+MERGE (a6:Actor {name: 'Betsy Brandt'})
+MERGE (a7:Actor {name: 'Bob Odenkirk'})
 
-//Relacion con director
-MATCH (s:Series {seriesId: '1'}), (d1:Director {name: 'Vince Gilligan'})
-CREATE (s)-[:DIRECTED_BY]->(d1)
-
-//Relacion con actores
-MATCH (s:Series {seriesId: '1'}), (a1:Actor {name: 'Bryan Cranston'}), (a2:Actor {name: 'Aaron Paul'})
-CREATE (s)-[:HAS_ACTOR]->(a1)
-CREATE (s)-[:HAS_ACTOR]->(a2)
-
-//Relaciones de Rating
-MATCH (s:Series {seriesId: '1'}), (r1:Rating {ratingId: '1'}), (r2:Rating {ratingId: '2'})
-CREATE (s)-[:HAS_RATING]->(r1)
-CREATE (s)-[:HAS_RATING]->(r2)
+// Relacionar actores principales
+MERGE (s)-[:HAS_ACTOR]->(a1)
+MERGE (s)-[:HAS_ACTOR]->(a2)
+MERGE (s)-[:HAS_ACTOR]->(a3)
+MERGE (s)-[:HAS_ACTOR]->(a4)
+MERGE (s)-[:HAS_ACTOR]->(a5)
+MERGE (s)-[:HAS_ACTOR]->(a6)
+MERGE (s)-[:HAS_ACTOR]->(a7)

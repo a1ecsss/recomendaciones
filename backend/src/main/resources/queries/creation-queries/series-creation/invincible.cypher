@@ -1,57 +1,50 @@
-CREATE (s:Series {
-    seriesId: '3',
-    name: 'Invincible',
-    rating: 8.7,
-    numOfRatings: 500000,  // Aproximado de calificaciones en IMDb.
-    description: 'Teenager Mark Grayson inherits superhuman abilities from his father, Omni-Man, and must learn to navigate the responsibilities of being a hero, while dealing with the legacy of his father’s actions.',
-    year: 2021,
-    duration: 45,
-    totalSeasons: 1,
-    totalEpisodes: 8
-})
+// Crear la serie
+MERGE (s:Series {seriesId: '3', name: 'Invincible'})
+ON CREATE SET s.rating = 8.7,
+              s.numOfRatings = 500000,
+              s.description = 'Mark Grayson es un adolescente normal, excepto por el hecho de que su padre es el superhéroe más poderoso del planeta, Omni-Man. A medida que desarrolla sus propios poderes, Mark debe enfrentarse a las duras realidades de ser un héroe.',
+              s.year = 2021,
+              s.duration = 45,
+              s.totalSeasons = 1,
+              s.totalEpisodes = 8,
+              s.image = 'invincible.png'
 
-//director
-CREATE (d3:Director {directorId: '3', name: 'Robert Kirkman', birthDate: '1978-11-30', nationality: 'American'})
+// MERGE de géneros
+MERGE (g1:Genre {name: 'Animation'})
+MERGE (g2:Genre {name: 'Superheroes'})
 
-//actores
-CREATE (a9:Actor {actorId: '9', name: 'Steven Yeun', birthDate: '1983-12-12', nationality: 'South Korean-American'})
-CREATE (a10:Actor {actorId: '10', name: 'J.K. Simmons', birthDate: '1955-01-09', nationality: 'American'})
-CREATE (a11:Actor {actorId: '11', name: 'Sandra Oh', birthDate: '1971-07-20', nationality: 'Canadian'})
+// Relacionar géneros
+MERGE (s)-[:BELONGS_TO]->(g1)
+MERGE (s)-[:BELONGS_TO]->(g2)
 
-//ratings
-CREATE (r5:Rating {ratingId: '5', ratingValue: 8.7, ratingSource: 'User', timestamp: '2023-05-10', ratingDescription: 'An exciting and action-packed animated series with great character development.'})
-CREATE (r6:Rating {ratingId: '6', ratingValue: 8.5, ratingSource: 'Critic', timestamp: '2023-05-12', ratingDescription: 'A fresh take on the superhero genre, blending action with emotional depth.'})
+// MERGE de tags
+MERGE (t1:Tag {name: 'Action'})
+MERGE (t2:Tag {name: 'Drama'})
+MERGE (t3:Tag {name: 'Science Fiction'})
 
-//relacion genero
-MATCH (s:Series {seriesId: '3'}), (g6:Genre {name: 'Action'}), (g7:Genre {name: 'Superhero'})
-CREATE (s)-[:BELONGS_TO]->(g6)
-CREATE (s)-[:BELONGS_TO]->(g7)
+// Relacionar tags
+MERGE (s)-[:HAS_TAG]->(t1)
+MERGE (s)-[:HAS_TAG]->(t2)
+MERGE (s)-[:HAS_TAG]->(t3)
 
-//relacion tags
-MATCH (s:Series {seriesId: '3'}), (t8:Tag {name: 'Violence'}), (t9:Tag {name: 'Animated'}), (t10:Tag {name: 'Superpowers'})
-CREATE (s)-[:HAS_TAG]->(t8)
-CREATE (s)-[:HAS_TAG]->(t9)
-CREATE (s)-[:HAS_TAG]->(t10)
+// MERGE de idioma
+MERGE (l:Language {name: 'English'})
+MERGE (s)-[:IS_IN_LANGUAGE]->(l)
 
-//relacion idioma
-MATCH (s:Series {seriesId: '3'}), (l3:Language {name: 'English'})
-CREATE (s)-[:IS_IN_LANGUAGE]->(l3)
+// MERGE de país
+MERGE (c:Country {name: 'United States'})
+MERGE (s)-[:PRODUCED_IN]->(c)
 
-//relacion pais
-MATCH (s:Series {seriesId: '3'}), (c3:Country {name: 'USA'})
-CREATE (s)-[:PRODUCED_IN]->(c3)
+// MERGE de director
+MERGE (d:Director {name: 'Simon Racioppa'})
+MERGE (s)-[:DIRECTED_BY]->(d)
 
-//relacion director
-MATCH (s:Series {seriesId: '3'}), (d3:Director {name: 'Robert Kirkman'})
-CREATE (s)-[:DIRECTED_BY]->(d3)
+// MERGE de actores
+MERGE (a1:Actor {name: 'Steven Yeun'})
+MERGE (a2:Actor {name: 'J.K. Simmons'})
+MERGE (a3:Actor {name: 'Sandra Oh'})
 
-//relacion actores
-MATCH (s:Series {seriesId: '3'}), (a9:Actor {name: 'Steven Yeun'}), (a10:Actor {name: 'J.K. Simmons'}), (a11:Actor {name: 'Sandra Oh'})
-CREATE (s)-[:HAS_ACTOR]->(a9)
-CREATE (s)-[:HAS_ACTOR]->(a10)
-CREATE (s)-[:HAS_ACTOR]->(a11)
-
-//relacion ratings
-MATCH (s:Series {seriesId: '3'}), (r5:Rating {ratingId: '5'}), (r6:Rating {ratingId: '6'})
-CREATE (s)-[:HAS_RATING]->(r5)
-CREATE (s)-[:HAS_RATING]->(r6)
+// Relacionar actores principales
+MERGE (s)-[:HAS_ACTOR]->(a1)
+MERGE (s)-[:HAS_ACTOR]->(a2)
+MERGE (s)-[:HAS_ACTOR]->(a3)
