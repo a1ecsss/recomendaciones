@@ -1,0 +1,23 @@
+<div class="series-container">
+  <div class="series-content">
+    <div class="content-header">
+      <div class="header-info">
+        <h2>{{pageTitle}}</h2>
+        <p *ngIf="pageType === 'dashboard'">Explora nuestra colección completa de series</p>
+        <p *ngIf="pageType === 'recommended'">Series seleccionadas especialmente para ti</p>
+      </div>
+      <div class="series-count">
+        <span class="count-number">{{series.length}}</span>
+        <span class="count-label">series</span>
+      </div>
+    </div>
+
+    <div class="series-grid">
+      <app-series-card
+        *ngFor="let serie of series"
+        [series]="serie"
+        (seriesAction)="onSeriesAction($event)">
+      </app-series-card>
+    </div>
+  </div>
+</div>

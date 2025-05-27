@@ -1,0 +1,64 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="3" rx="2"/>
+          <path d="M9 9h6v6H9z"/>
+        </svg>
+        <h2>Series App</h2>
+      </div>
+      <p>Inicia sesión en tu cuenta</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+      <div class="form-group">
+        <label for="username">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Usuario
+        </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Ingresa tu usuario"
+          class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="password">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+            <path d="m7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          Contraseña
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Ingresa tu contraseña"
+          class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!loginForm.form.valid">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+        Iniciar Sesión
+      </button>
+    </form>
+
+    <div class="signup-link">
+      <span>¿No tienes cuenta?</span>
+      <button type="button" class="link-btn" (click)="goToSignup()">Crear cuenta</button>
+    </div>
+  </div>
+</div>
