@@ -1,17 +1,50 @@
-MATCH (s:Series)-[:BELONGS_TO]->(g:Genre)<-[:BELONGS_TO]-(recommended:Series)
-WHERE s.name = $name
-WITH recommended, COUNT(g) AS genreSimilarity
+// Algoritmo KNN para recomendaciones
+MATCH (u:User {userId: $userId})-[:HAS_LIKED]->(liked:Series)
+WITH u, collect(liked) AS likedSeries
 
-MATCH (s:Series)-[:HAS_ACTOR]->(a:Actor)<-[:HAS_ACTOR]-(recommended)
-WITH recommended, genreSimilarity, COUNT(a) AS actorSimilarity
+// buscar TODAS las series NO vistas por el usuario
+MATCH (s:Series)
+WHERE NOT (u)-[:HAS_WATCHED]->(s)
 
-MATCH (s:Series)-[:HAS_TAG]->(t:Tag)<-[:HAS_TAG]-(recommended)
-WITH recommended, genreSimilarity, actorSimilarity, COUNT(t) AS tagSimilarity
+// calcular la puntuacion basada en coincidencias ponderadas
+OPTIONAL MATCH (s)-[:BELONGS_TO]->(g:Genre)<-[:BELONGS_TO]-(liked)
+WITH u, s, likedSeries, count(g) * u.importanceGenre AS genreScore
 
-MATCH (s:Series)-[:HAS_RATING]->(r:Rating)<-[:HAS_RATING]-(recommended)
-WITH recommended, genreSimilarity, actorSimilarity, tagSimilarity, AVG(r.ratingValue) AS ratingSimilarity
+OPTIONAL MATCH (s)-[:HAS_ACTOR]->(a:Actor)<-[:HAS_ACTOR]-(liked)
+WITH u, s, genreScore, count(a) * u.importanceActor AS actorScore
 
-RETURN recommended.name AS RecommendedSeries, 
-       genreSimilarity + actorSimilarity + tagSimilarity + ratingSimilarity AS TotalSimilarity
-ORDER BY TotalSimilarity DESC
-LIMIT 1
+OPTIONAL MATCH (s)-[:DIRECTED_BY]->(d:Director)<-[:DIRECTED_BY]-(liked)
+WITH u, s, genreScore, actorScore, count(d) * u.importanceDirector AS directorScore
+
+OPTIONAL MATCH (s)-[:IS_IN_LANGUAGE]->(l:Language)<-[:IS_IN_LANGUAGE]-(liked)
+WITH u, s, genreScore, actorScore, directorScore, count(l) * u.importanceLanguage AS languageScore
+
+OPTIONAL MATCH (s)-[:PRODUCED_IN]->(c:Country)<-[:PRODUCED_IN]-(liked)
+WITH u, s, genreScore, actorScore, directorScore, languageScore, count(c) * u.importanceCountry AS countryScore
+
+// sumar las puntuaciones de año, rating y duracion
+WITH u, s, genreScore, actorScore, directorScore, languageScore, countryScore,
+     abs(s.year - avg(liked.year)) * u.importanceYear AS yearDiff,
+     abs(s.duration - avg(liked.duration)) * u.importanceDuration AS durationDiff,
+     s.rating * u.importanceRating AS ratingScore
+
+// calcular la puntuación final -> considerar la formula
+WITH s,
+     genreScore + actorScore + directorScore + languageScore + countryScore + ratingScore
+     - yearDiff - durationDiff AS totalScore
+
+ORDER BY totalScore DESC
+LIMIT 8
+
+RETURN 
+    s.seriesId AS seriesId,
+    s.name AS name,
+    s.rating AS rating,
+    s.numOfRatings AS numOfRatings,
+    s.description AS description,
+    s.year AS year,
+    s.duration AS duration,
+    s.totalSeasons AS totalSeasons,
+    s.totalEpisodes AS totalEpisodes,
+    s.image AS image,
+    totalScore

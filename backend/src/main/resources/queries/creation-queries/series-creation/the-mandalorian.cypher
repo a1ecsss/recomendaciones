@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '5', name: 'The Mandalorian'})
+MERGE (s:Series {seriesId: '17', name: 'The Mandalorian'})
 ON CREATE SET s.rating = 8.7,
               s.numOfRatings = 500000,
               s.description = 'Un cazarrecompensas solitario en los confines de la galaxia protege a un misterioso niño con habilidades especiales mientras evade a las fuerzas imperiales remanentes.',

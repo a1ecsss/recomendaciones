@@ -1,6 +1,6 @@
 // Crear la serie (MERGE para evitar duplicados)
 MERGE (s:Series {
-    seriesId: '17',
+    seriesId: '8',
     name: 'Hawkeye'
 })
 ON CREATE SET s.rating = 7.5,

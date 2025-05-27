@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '10', name: 'X-Men \'97'})
+MERGE (s:Series {seriesId: '20', name: 'X-Men \'97'})
 ON CREATE SET s.rating = 8.9,
               s.numOfRatings = 500000,
               s.description = 'Los X-Men, un grupo de mutantes con habilidades extraordinarias, luchan por la coexistencia pacífica en un mundo que los teme y los odia. En esta continuación de la serie animada de los 90, enfrentan nuevas amenazas y desafíos personales.',

@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '6', name: 'The Boys'})
+MERGE (s:Series {seriesId: '14', name: 'The Boys'})
 ON CREATE SET s.rating = 8.7,
               s.numOfRatings = 500000,
               s.description = 'En un mundo donde los superhéroes abusan de sus poderes, un grupo de vigilantes conocidos como "The Boys" se propone exponer la verdad sobre "The Seven" y Vought International.',

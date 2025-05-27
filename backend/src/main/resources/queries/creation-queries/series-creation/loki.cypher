@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '13', name: 'Loki'})
+MERGE (s:Series {seriesId: '10', name: 'Loki'})
 ON CREATE SET s.rating = 8.2,
               s.numOfRatings = 200000,
               s.description = 'Después de robar el Tesseracto durante los eventos de "Avengers: Endgame", una versión alternativa de Loki es llevada ante la misteriosa Autoridad de Variación Temporal (AVT) y se ve obligado a ayudar a arreglar las líneas de tiempo rotas.',

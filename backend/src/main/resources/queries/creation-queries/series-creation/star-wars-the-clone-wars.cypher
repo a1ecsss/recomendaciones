@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '8', name: 'Star Wars: The Clone Wars'})
+MERGE (s:Series {seriesId: '13', name: 'Star Wars: The Clone Wars'})
 ON CREATE SET s.rating = 8.4,
               s.numOfRatings = 150000,
               s.description = 'Durante las Guerras Clon, los Caballeros Jedi lideran el Gran Ejército de la República contra la Confederación de Sistemas Independientes. La serie sigue las aventuras de Anakin Skywalker, su padawan Ahsoka Tano, y Obi-Wan Kenobi mientras luchan contra las fuerzas separatistas.',

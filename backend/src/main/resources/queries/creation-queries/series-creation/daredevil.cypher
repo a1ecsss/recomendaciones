@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '12', name: 'Daredevil'})
+MERGE (s:Series {seriesId: '4', name: 'Daredevil'})
 ON CREATE SET s.rating = 8.6,
               s.numOfRatings = 500000,
               s.description = 'Matt Murdock, un abogado ciego con sentidos sobrehumanos, lucha contra el crimen como el justiciero Daredevil en las calles de Hell\'s Kitchen, Nueva York.',

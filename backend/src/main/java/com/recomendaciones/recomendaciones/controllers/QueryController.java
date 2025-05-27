@@ -1,6 +1,10 @@
 package com.recomendaciones.recomendaciones.controllers;
 
 import com.recomendaciones.recomendaciones.models.HttpResponse;
+import com.recomendaciones.recomendaciones.models.LoginUserInfo;
+import com.recomendaciones.recomendaciones.models.Series;
+import com.recomendaciones.recomendaciones.models.User;
+import com.recomendaciones.recomendaciones.models.requests.UserSeriesRequest;
 import com.recomendaciones.recomendaciones.services.FileReaderService;
 import com.recomendaciones.recomendaciones.services.RecommendationService;
 
@@ -24,9 +28,39 @@ public class QueryController {
         return recommendationService.getRecommendedSeries(name);
     }
 
-     @PostMapping("/initializeDatabase")
+    @PostMapping("/initializeDatabase")
     public HttpResponse<String> initializeDatabase() {
         // Llamar a servicio para inicializar la base de datos
         return recommendationService.initializeDatabase();
+    }
+
+    @PostMapping("/hasLiked")
+    public HttpResponse<Void> toggleHasLiked(UserSeriesRequest info) {
+        return recommendationService.toggleWatchedOrLiked(info, true);
+    }
+
+    @PostMapping("/hasWatched")
+    public HttpResponse<Void> toggleHasWatched(UserSeriesRequest info) {
+        return recommendationService.toggleWatchedOrLiked(info, false);
+    }
+
+    @PostMapping("/createUser")
+    public HttpResponse<Void> createUser(User user) {
+        return recommendationService.createUser(user);
+    }
+
+    @GetMapping("/login")
+    public HttpResponse<LoginUserInfo> logIn(
+        @RequestParam("username") String username,
+        @RequestParam("password") String password
+    ) {
+        return recommendationService.logIn(username, password);
+    }
+
+    @GetMapping("/recomendedSeries")
+    public HttpResponse<Series[]> recomendedSeries(
+        @RequestParam("userId") String userId
+    ) {
+        return recommendationService.recomendedSeries(userId);
     }
 }

@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '15', name: 'The Walking Dead'})
+MERGE (s:Series {seriesId: '19', name: 'The Walking Dead'})
 ON CREATE SET s.rating = 8.2,
               s.numOfRatings = 2000000,
               s.description = 'Después de despertar de un coma, el oficial de policía Rick Grimes descubre que el mundo ha sido invadido por zombis. Se une a un grupo de sobrevivientes que luchan por mantenerse con vida en un mundo postapocalíptico.',

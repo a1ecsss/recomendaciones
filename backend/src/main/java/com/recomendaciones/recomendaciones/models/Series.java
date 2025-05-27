@@ -4,21 +4,27 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Property;
 
-@Node
 public class Series {
-
-    @Id
-    private Long id;
-
-    @Property
+    private String seriesId;
     private String name;
+    private double rating;
+    private int numOfRatings;
+    private String description;
+    private int year;
+    private int duration;
+    private int totalSeasons;
+    private int totalEpisodes;
+    private String image;
+    private double totalScore; // Este es el puntaje calculado por el algoritmo
 
-    @Property
-    private String genre;
+    // Getters y Setters
+    public String getSeriesId() {
+        return seriesId;
+    }
 
-    // Otros atributos que quieras agregar
-
-    // Getters y setters
+    public void setSeriesId(String seriesId) {
+        this.seriesId = seriesId;
+    }
 
     public String getName() {
         return name;
@@ -28,13 +34,76 @@ public class Series {
         this.name = name;
     }
 
-    public String getGenre() {
-        return genre;
+    public double getRating() {
+        return rating;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
-    // Otros getters y setters
+    public int getNumOfRatings() {
+        return numOfRatings;
+    }
+
+    public void setNumOfRatings(int numOfRatings) {
+        this.numOfRatings = numOfRatings;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public int getTotalSeasons() {
+        return totalSeasons;
+    }
+
+    public void setTotalSeasons(int totalSeasons) {
+        this.totalSeasons = totalSeasons;
+    }
+
+    public int getTotalEpisodes() {
+        return totalEpisodes;
+    }
+
+    public void setTotalEpisodes(int totalEpisodes) {
+        this.totalEpisodes = totalEpisodes;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(double totalScore) {
+        this.totalScore = totalScore;
+    }
 }
+

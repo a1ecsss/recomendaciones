@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '9', name: 'Fallout'})
+MERGE (s:Series {seriesId: '5', name: 'Fallout'})
 ON CREATE SET s.rating = 8.6,
               s.numOfRatings = 500000,
               s.description = 'Doscientos años después del apocalipsis, los habitantes de lujosos refugios subterráneos deben regresar al infierno radiactivo que sus antepasados dejaron atrás, enfrentándose a un universo complejo, violento y extraño.',

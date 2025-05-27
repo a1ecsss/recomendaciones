@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '16', name: 'Chernobyl'})
+MERGE (s:Series {seriesId: '3', name: 'Chernobyl'})
 ON CREATE SET s.rating = 9.4,
               s.numOfRatings = 600000,
               s.description = 'Una dramatización del desastre nuclear de Chernóbil de abril de 1986 y los esfuerzos de limpieza que siguieron.',

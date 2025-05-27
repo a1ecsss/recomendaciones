@@ -1,5 +1,5 @@
 // Crear la serie (MERGE para evitar duplicados)
-MERGE (s:Series {seriesId: '12', name: 'Breaking Bad'})
+MERGE (s:Series {seriesId: '2', name: 'Breaking Bad'})
 ON CREATE SET s.rating = 9.5,
               s.numOfRatings = 2000000,
               s.description = 'Walter White, un profesor de química de secundaria diagnosticado con cáncer de pulmón, se adentra en el mundo del crimen al producir y vender metanfetamina para asegurar el futuro financiero de su familia.',

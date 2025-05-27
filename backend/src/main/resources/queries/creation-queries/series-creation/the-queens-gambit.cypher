@@ -1,6 +1,6 @@
 // Crear la serie (MERGE para evitar duplicados)
 MERGE (s:Series {
-    seriesId: '19',
+    seriesId: '18',
     name: 'The Queen\'s Gambit'
 })
 ON CREATE SET s.rating = 8.6,

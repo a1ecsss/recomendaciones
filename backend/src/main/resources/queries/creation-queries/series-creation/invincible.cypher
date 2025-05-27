@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '3', name: 'Invincible'})
+MERGE (s:Series {seriesId: '8', name: 'Invincible'})
 ON CREATE SET s.rating = 8.7,
               s.numOfRatings = 500000,
               s.description = 'Mark Grayson es un adolescente normal, excepto por el hecho de que su padre es el superhéroe más poderoso del planeta, Omni-Man. A medida que desarrolla sus propios poderes, Mark debe enfrentarse a las duras realidades de ser un héroe.',

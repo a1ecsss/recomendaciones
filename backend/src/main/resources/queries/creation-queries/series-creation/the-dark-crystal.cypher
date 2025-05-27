@@ -1,6 +1,6 @@
 // Crear la serie (MERGE para evitar duplicados)
 MERGE (s:Series {
-    seriesId: '18',
+    seriesId: '15',
     name: 'The Dark Crystal: Age of Resistance'
 })
 ON CREATE SET s.rating = 8.4,

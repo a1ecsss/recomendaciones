@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '17', name: 'The Last of Us'})
+MERGE (s:Series {seriesId: '16', name: 'The Last of Us'})
 ON CREATE SET s.rating = 9.0,
               s.numOfRatings = 1500000,
               s.description = 'Veinte años después de la destrucción de la civilización moderna, Joel, un sobreviviente endurecido, es contratado para sacar de contrabando a Ellie, una niña de 14 años, de una zona de cuarentena opresiva. Lo que comienza como un pequeño trabajo pronto se convierte en un viaje brutal y desgarrador.',
@@ -56,8 +56,8 @@ MERGE (d1:Director {name: 'Craig Mazin'})
 MERGE (d2:Director {name: 'Neil Druckmann'})
 
 // Relacionar creadores
-MERGE (s)-[:CREATED_BY]->(d1)
-MERGE (s)-[:CREATED_BY]->(d2)
+MERGE (s)-[:DIRECTED_BY]->(d1)
+MERGE (s)-[:DIRECTED_BY]->(d2)
 
 // MERGE de actores
 MERGE (a1:Actor {name: 'Pedro Pascal'})

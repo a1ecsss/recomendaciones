@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '14', name: 'Friends'})
+MERGE (s:Series {seriesId: '6', name: 'Friends'})
 ON CREATE SET s.rating = 8.9,
               s.numOfRatings = 2500000,
               s.description = 'Seis amigos veinteañeros que viven en Manhattan navegan por la vida y el amor mientras comparten risas y momentos inolvidables.',
@@ -50,8 +50,8 @@ MERGE (d1:Director {name: 'David Crane'})
 MERGE (d2:Director {name: 'Marta Kauffman'})
 
 // Relacionar creadores
-MERGE (s)-[:CREATED_BY]->(d1)
-MERGE (s)-[:CREATED_BY]->(d2)
+MERGE (s)-[:DIRECTED_BY]->(d1)
+MERGE (s)-[:DIRECTED_BY]->(d2)
 
 // MERGE de actores
 MERGE (a1:Actor {name: 'Jennifer Aniston'})

@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '11', name: 'Game of Thrones'})
+MERGE (s:Series {seriesId: '7', name: 'Game of Thrones'})
 ON CREATE SET s.rating = 9.3,
               s.numOfRatings = 2000000,
               s.description = 'Nueve familias nobles luchan por el control de los Siete Reinos de Westeros, mientras una antigua amenaza regresa después de estar dormida durante milenios.',

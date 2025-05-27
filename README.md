@@ -14,7 +14,20 @@ El sistema es diseñado para **recomendar series** utilizando un modelo de base 
 
 A continuación se describen los **nodos** y sus respectivos **atributos** que se almacenarán en la base de datos para construir el sistema de recomendación.
 
-### **1. Series (Serie de Televisión)** 🎬
+### **1. User (Usuario de la Plataforma)** 👤
+- **userId**: ID único del usuario (puede ser un UUID o un número secuencial único).
+- **username**: Nombre de usuario utilizado para el inicio de sesión.
+- **password**: Contraseña del usuario (debe almacenarse de forma segura, preferiblemente hasheada).
+- **importanceGenre**: Peso o importancia que el usuario le da al género de las series (puede ser un número de 1 a 5, donde 1 es "poco importante" y 5 es "muy importante").
+- **importanceActor**: Peso que el usuario le asigna a los actores en sus preferencias de visualización.
+- **importanceDirector**: Nivel de importancia que el usuario le da al director en la elección de las series.
+- **importanceRating**: Valor que indica cuánto le importa al usuario la calificación promedio de las series.
+- **importanceLanguage**: Importancia que el usuario le da al idioma en el que está disponible la serie.
+- **importanceCountry**: Peso asignado por el usuario al país de origen de la serie.
+- **importanceYear**: Preferencia del usuario por el año de estreno de las series.
+- **importanceDuration**: Nivel de importancia que el usuario le asigna a la duración promedio de los episodios.
+
+### **2. Series (Serie de Televisión)** 🎬
 - **seriesId**: ID único de la serie (por ejemplo, un número o un código único).
 - **name**: Nombre de la serie.
 - **rating**: Calificación promedio de la serie (puede ser entre 1 y 5 o entre 0 y 10, dependiendo de cómo manejes las calificaciones).
@@ -25,38 +38,34 @@ A continuación se describen los **nodos** y sus respectivos **atributos** que s
 - **totalSeasons**: Número total de temporadas de la serie.
 - **totalEpisodes**: Número total de episodios de la serie.
 
-### **2. Género (Genre)** 🎭
+### **3. Género (Genre)** 🎭
 - **genreId**: ID único del género.
 - **name**: Nombre del género (por ejemplo, Comedy, Drama, Action, etc.).
 
-### **3. Actor (Actor)** 🎤
+### **4. Actor (Actor)** 🎤
 - **actorId**: ID único del actor.
 - **name**: Nombre del actor.
 - **birthDate**: Fecha de nacimiento del actor (opcional).
 - **nationality**: Nacionalidad del actor (opcional).
 
-### **4. Director (Director)** 🎬
+### **5. Director (Director)** 🎬
 - **directorId**: ID único del director.
 - **name**: Nombre del director.
 - **birthDate**: Fecha de nacimiento del director (opcional).
 - **nationality**: Nacionalidad del director (opcional).
 
-### **5. Tag (Etiquetas Temáticas)** 🏷️
+### **6. Tag (Etiquetas Temáticas)** 🏷️
 - **tagId**: ID único de la etiqueta.
 - **name**: Nombre de la etiqueta (por ejemplo, Thriller, Romance, Sci-Fi, Historical, etc.).
 
-### **6. Idioma (Language)** 🌐
+### **7. Idioma (Language)** 🌐
 - **languageId**: ID único del idioma.
 - **name**: Nombre del idioma (por ejemplo, English, Spanish, French).
 
-### **7. País (Country)** 🌍
+### **8. País (Country)** 🌍
 - **countryId**: ID único del país.
 - **name**: Nombre del país (por ejemplo, USA, UK, Spain, etc.).
 
-### **8. Rating (Calificación)** ⭐
-- **ratingId**: ID único de la calificación.
-- **ratingValue**: Calificación otorgada (puede ser un valor numérico de 1 a 5 o de 0 a 10).
-- **ratingSource**: Fuente de la calificación (por ejemplo, User, Critic).
 
 ---
 
@@ -70,7 +79,8 @@ Las relaciones entre los nodos serán clave para el sistema de recomendaciones. 
 - **Series-[:HAS_TAG]->Tag**: Relaciona una serie con una o más etiquetas temáticas.
 - **Series-[:IS_IN_LANGUAGE]->Language**: Relaciona una serie con el idioma en el que está disponible.
 - **Series-[:PRODUCED_IN]->Country**: Relaciona una serie con el país donde fue producida.
-- **Series-[:HAS_RATING]->Rating**: Relaciona una serie con las calificaciones que ha recibido.
+- **User-[:HAS_WATCHED]->Series**: Relaciona un usuario con una serie para no volver a recomednarla.
+- **User-[:HAS_LIKED]->Series**: Relaciona un usuario con una serie, para determinar series gustadas y a partir de aqui hacer las recomendaciones.
 
 ---
 
