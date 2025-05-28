@@ -104,4 +104,21 @@ public class User {
     public void setImportanceDuration(double importanceDuration) {
         this.importanceDuration = importanceDuration;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", importanceGenre=" + importanceGenre +
+                ", importanceActor=" + importanceActor +
+                ", importanceDirector=" + importanceDirector +
+                ", importanceRating=" + importanceRating +
+                ", importanceLanguage=" + importanceLanguage +
+                ", importanceCountry=" + importanceCountry +
+                ", importanceYear=" + importanceYear +
+                ", importanceDuration=" + importanceDuration +
+                '}';
+    }
 }

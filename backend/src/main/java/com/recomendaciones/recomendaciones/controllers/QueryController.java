@@ -7,6 +7,8 @@ import com.recomendaciones.recomendaciones.models.User;
 import com.recomendaciones.recomendaciones.models.requests.UserSeriesRequest;
 import com.recomendaciones.recomendaciones.services.FileReaderService;
 import com.recomendaciones.recomendaciones.services.RecommendationService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +37,17 @@ public class QueryController {
     }
 
     @PostMapping("/hasLiked")
-    public HttpResponse<Void> toggleHasLiked(UserSeriesRequest info) {
+    public HttpResponse<Void> toggleHasLiked(@RequestBody UserSeriesRequest info) {
         return recommendationService.toggleWatchedOrLiked(info, true);
     }
 
     @PostMapping("/hasWatched")
-    public HttpResponse<Void> toggleHasWatched(UserSeriesRequest info) {
+    public HttpResponse<Void> toggleHasWatched(@RequestBody UserSeriesRequest info) {
         return recommendationService.toggleWatchedOrLiked(info, false);
     }
 
     @PostMapping("/createUser")
-    public HttpResponse<Void> createUser(User user) {
+    public HttpResponse<Void> createUser(@RequestBody User user) {
         return recommendationService.createUser(user);
     }
 
@@ -62,5 +64,10 @@ public class QueryController {
         @RequestParam("userId") String userId
     ) {
         return recommendationService.recomendedSeries(userId);
+    }
+
+    @GetMapping("/getAllSeries")
+    public HttpResponse<Series[]> getAllSeries() {
+        return recommendationService.getAllSeries();
     }
 }

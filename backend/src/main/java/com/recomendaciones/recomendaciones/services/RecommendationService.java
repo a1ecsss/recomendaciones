@@ -120,7 +120,7 @@ public class RecommendationService {
         try {
             // Generar UUID para el userId
             user.setUserId(UUID.randomUUID().toString());
-            String cypherQuery = fileReaderService.readQueryFile("user");
+            String cypherQuery = fileReaderService.readQueryFile("creation-queries/user");
             try (Session session = neo4jDriver.session()) {
                 // Mapear los parámetros
                 Map<String, Object> params = Map.ofEntries(
@@ -140,10 +140,10 @@ public class RecommendationService {
                 session.run(cypherQuery, params);
                 return new HttpResponse<>(HttpResponse.Status.SUCCESS, "User created successfully", null);
             }
-
         } catch (Exception e) {
             // Manejar errores
-            return new HttpResponse<>(HttpResponse.Status.ERROR, "Error executing the query: " + e.getMessage(), null);
+            return new HttpResponse<>(HttpResponse.Status.ERROR,
+            "Error executing the query: " + e.getClass().getName() + " - " + e.getMessage(), null);
         }
     }
 
@@ -178,39 +178,69 @@ public class RecommendationService {
     }
 
     public HttpResponse<Series[]> recomendedSeries(String userId) {
-    try {
-        String cypherQuery = fileReaderService.readQueryFile("knn-algorithm");
-        try (Session session = neo4jDriver.session()) {
-            Map<String, Object> params = Map.of("userId", userId);
-            Result result = session.run(cypherQuery, params);
-            List<Series> seriesList = new ArrayList<>();
-            while (result.hasNext()) {
-                Record record = result.next();
-                Series series = new Series();
-                series.setSeriesId(record.get("seriesId").asString());
-                series.setName(record.get("name").asString());
-                series.setRating(record.get("rating").asDouble());
-                series.setNumOfRatings(record.get("numOfRatings").asInt());
-                series.setDescription(record.get("description").asString());
-                series.setYear(record.get("year").asInt());
-                series.setDuration(record.get("duration").asInt());
-                series.setTotalSeasons(record.get("totalSeasons").asInt());
-                series.setTotalEpisodes(record.get("totalEpisodes").asInt());
-                series.setImage(record.get("image").asString());
-                if (record.containsKey("totalScore")) {
-                    series.setTotalScore(record.get("totalScore").asDouble());
+        try {
+            String cypherQuery = fileReaderService.readQueryFile("knn-algorithm");
+            try (Session session = neo4jDriver.session()) {
+                Map<String, Object> params = Map.of("userId", userId);
+                Result result = session.run(cypherQuery, params);
+                List<Series> seriesList = new ArrayList<>();
+                while (result.hasNext()) {
+                    Record record = result.next();
+                    Series series = new Series();
+                    series.setSeriesId(record.get("seriesId").asString());
+                    series.setName(record.get("name").asString());
+                    series.setRating(record.get("rating").asDouble());
+                    series.setNumOfRatings(record.get("numOfRatings").asInt());
+                    series.setDescription(record.get("description").asString());
+                    series.setYear(record.get("year").asInt());
+                    series.setDuration(record.get("duration").asInt());
+                    series.setTotalSeasons(record.get("totalSeasons").asInt());
+                    series.setTotalEpisodes(record.get("totalEpisodes").asInt());
+                    series.setImage(record.get("image").asString());
+                    if (record.containsKey("totalScore")) {
+                        series.setTotalScore(record.get("totalScore").asDouble());
+                    }
+                    seriesList.add(series);
                 }
-                seriesList.add(series);
+                Series[] seriesArray = seriesList.toArray(new Series[0]);
+
+                return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Recommended series retrieved successfully", seriesArray);
             }
-            Series[] seriesArray = seriesList.toArray(new Series[0]);
 
-            return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Recommended series retrieved successfully", seriesArray);
+        } catch (Exception e) {
+            return new HttpResponse<>(HttpResponse.Status.ERROR, "Error executing the query: " + e.getMessage(), null);
         }
-
-    } catch (Exception e) {
-        return new HttpResponse<>(HttpResponse.Status.ERROR, "Error executing the query: " + e.getMessage(), null);
     }
-}
 
+    public HttpResponse<Series[]> getAllSeries() {
+        try {
+            String cypherQuery = fileReaderService.readQueryFile("selectAllSeries");
+            try (Session session = neo4jDriver.session()) {
+                Result result = session.run(cypherQuery);
+                List<Series> seriesList = new ArrayList<>();
+                while (result.hasNext()) {
+                    Record record = result.next();
+                    Series series = new Series();
+                    series.setSeriesId(record.get("seriesId").asString());
+                    series.setName(record.get("name").asString());
+                    series.setRating(record.get("rating").asDouble());
+                    series.setNumOfRatings(record.get("numOfRatings").asInt());
+                    series.setDescription(record.get("description").asString());
+                    series.setYear(record.get("year").asInt());
+                    series.setDuration(record.get("duration").asInt());
+                    series.setTotalSeasons(record.get("totalSeasons").asInt());
+                    series.setTotalEpisodes(record.get("totalEpisodes").asInt());
+                    series.setImage(record.get("image").asString());
+                    seriesList.add(series);
+                }
+                Series[] seriesArray = seriesList.toArray(new Series[0]);
+
+                return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Series retrieved successfully", seriesArray);
+            }
+
+        } catch (Exception e) {
+            return new HttpResponse<>(HttpResponse.Status.ERROR, "Error executing the query: " + e.getMessage(), null);
+        }
+    }
 
 }
