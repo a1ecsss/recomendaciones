@@ -2,6 +2,7 @@ import { Component, type OnInit } from "@angular/core"
 import { Router } from "@angular/router"
 import { CommonModule } from "@angular/common"
 import { SeriesComponent } from "../series/series.component"
+import { SessionService } from "../../services/session.service"
 
 @Component({
   selector: "app-home",
@@ -13,7 +14,9 @@ import { SeriesComponent } from "../series/series.component"
 export class HomeComponent implements OnInit {
   activeTab: "dashboard" | "recommended" = "dashboard"
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    public sessionService: SessionService
+  ) {}
 
   ngOnInit() {
     // Por defecto mostrar dashboard
@@ -25,6 +28,7 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
+    this.sessionService.clearUser();
     this.router.navigate(["/login"])
   }
 }

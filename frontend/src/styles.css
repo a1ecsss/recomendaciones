@@ -125,3 +125,26 @@ html {
 .fade-in {
   animation: fadeIn 0.6s ease-out;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.info, .success, .error {
+  border-radius: 50;
+  background-color: unset !important; /* Para quitar el gris base de Angular */
+}
+
+.mat-mdc-snack-bar-container.info .mdc-snackbar__surface {
+  background-color: #2196f3 !important; /* Azul */
+  color: white;
+}
+
+.mat-mdc-snack-bar-container.success .mdc-snackbar__surface {
+  background-color: #4caf50 !important; /* Verde */
+  color: white;
+}
+
+.mat-mdc-snack-bar-container.error .mdc-snackbar__surface {
+  background-color: #f44336 !important; /* Rojo */
+  color: white;
+}

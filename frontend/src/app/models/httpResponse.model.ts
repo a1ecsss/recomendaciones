@@ -1,4 +1,4 @@
-export class HttpResponse<T> {
+export class HttpBackEndResponse<T> {
 
     // Definimos el tipo de status como un enum
     static Status = {
@@ -9,10 +9,10 @@ export class HttpResponse<T> {
 
     // Atributos de la clase
     status: string;   // El status será uno de los valores definidos en el enum Status
-    message: string | null;  // message puede ser un String o null
-    value: T | null;         // value puede ser de tipo T o null
+    message: string  // message puede ser un String o null
+    value: T;         // value puede ser de tipo T o null
 
-    constructor(status: string, message: string | null, value: T | null) {
+    constructor(status: string, message: string, value: T) {
         this.status = status;
         this.message = message;
         this.value = value;

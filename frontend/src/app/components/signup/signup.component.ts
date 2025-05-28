@@ -3,6 +3,8 @@ import { Router } from "@angular/router"
 import { FormsModule } from "@angular/forms"
 import { CommonModule } from "@angular/common"
 import type { User } from "../../models/user.model"
+import { ResponseService } from "../../services/response-namagment.service"
+import { SnackBarService } from "../../services/SnackBarService.service"
 
 @Component({
   selector: "app-signup",
@@ -39,13 +41,18 @@ export class SignupComponent {
 
   likertLabels = ["Nada importante", "Poco importante", "Moderadamente importante", "Importante", "Muy importante"]
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private responseService: ResponseService,
+    private snackBarService: SnackBarService,
+  ) {}
 
-  onSignup() {
+  async onSignup() {
     if (this.user.username && this.user.password) {
-      this.user.userId = this.generateUserId()
-      console.log("Signup:", this.user)
-      this.router.navigate(["/home"])
+      const result = await this.responseService.manageAnswerPost<User, null>('createUser', this.user);
+      this.snackBarService.showMessage(result);
+      if(result.status == 'SUCCESS'){
+        this.goToLogin();
+      }
     }
   }
 
@@ -61,7 +68,4 @@ export class SignupComponent {
     return (this.user as any)[questionKey]
   }
 
-  private generateUserId(): string {
-    return "user_" + Math.random().toString(36).substr(2, 9)
-  }
 }
