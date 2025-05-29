@@ -65,17 +65,19 @@
 
     <div class="series-actions">
       <button class="btn btn-liked" (click)="onLiked()" title="Me gustó">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7 10v12"/>
-          <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"
+          [attr.fill]="!series.hasLiked ? 'none' : '#ffffff'"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 10v12"/>
+        <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>
+      </svg>
         Me gusta
       </button>
       <button class="btn btn-watched" (click)="onWatched()" title="Ya la vi">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-          <path d="m9 11 3 3L22 4"/>
-        </svg>
+
+        <svg [attr.fill]="!series.hasWatched ? '#888888' : '#53bdeb'"
+        xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" x="0" y="0" viewBox="0 0 110 110" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="m31 68-.003.003L14.984 52 7 60.001 30.999 84H31l8-8 .18-.17-8-8zM80.99 34.01 73.01 26 44.83 54.18l8 7.99z" opacity="1" data-original="#000000" class=""></path><path d="M95.03 26 53.01 68 50 65l-8-8-5-5-7.99 8 5 5 8 8 11 11L103 34.01z" opacity="1" data-original="#000000" class=""></path></g></svg>
+
         Ya la vi
       </button>
     </div>

@@ -28,11 +28,17 @@ MERGE (t1:Tag {name: 'Gangsters'})
 MERGE (t2:Tag {name: 'Post-War'})
 MERGE (t3:Tag {name: 'Family'})
 MERGE (t4:Tag {name: 'Power Struggle'})
+MERGE (t5:Tag {name: 'Trauma'})
+MERGE (t6:Tag {name: 'Drama'})
+MERGE (t7:Tag {name: 'Addiction'})
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
 MERGE (s)-[:HAS_TAG]->(t2)
 MERGE (s)-[:HAS_TAG]->(t3)
 MERGE (s)-[:HAS_TAG]->(t4)
+MERGE (s)-[:HAS_TAG]->(t5)
+MERGE (s)-[:HAS_TAG]->(t6)
+MERGE (s)-[:HAS_TAG]->(t7)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

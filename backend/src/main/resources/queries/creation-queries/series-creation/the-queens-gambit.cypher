@@ -28,11 +28,17 @@ MERGE (t1:Tag {name: 'Chess'})
 MERGE (t2:Tag {name: 'Addiction'})
 MERGE (t3:Tag {name: 'Genius'})
 MERGE (t4:Tag {name: 'Orphan'})
+MERGE (t5:Tag {name: 'Competition'})
+MERGE (t6:Tag {name: 'Trauma'})
+MERGE (t7:Tag {name: 'Drama'})
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
 MERGE (s)-[:HAS_TAG]->(t2)
 MERGE (s)-[:HAS_TAG]->(t3)
 MERGE (s)-[:HAS_TAG]->(t4)
+MERGE (s)-[:HAS_TAG]->(t5)
+MERGE (s)-[:HAS_TAG]->(t6)
+MERGE (s)-[:HAS_TAG]->(t7)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

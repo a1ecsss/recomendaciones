@@ -27,6 +27,10 @@ MERGE (t4:Tag {name: 'Relationships'})
 MERGE (t5:Tag {name: 'Roommates'})
 MERGE (t6:Tag {name: 'Dating'})
 MERGE (t7:Tag {name: 'Humor'})
+MERGE (t8:Tag {name: 'Moral Dilemmas'})
+MERGE (t9:Tag {name: 'Family'})
+MERGE (t10:Tag {name: 'Friendship'})
+MERGE (t11:Tag {name: 'Loyalty'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
@@ -36,6 +40,10 @@ MERGE (s)-[:HAS_TAG]->(t4)
 MERGE (s)-[:HAS_TAG]->(t5)
 MERGE (s)-[:HAS_TAG]->(t6)
 MERGE (s)-[:HAS_TAG]->(t7)
+MERGE (s)-[:HAS_TAG]->(t8)
+MERGE (s)-[:HAS_TAG]->(t9)
+MERGE (s)-[:HAS_TAG]->(t10)
+MERGE (s)-[:HAS_TAG]->(t11)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

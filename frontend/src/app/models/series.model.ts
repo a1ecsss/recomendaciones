@@ -9,4 +9,6 @@ export interface Series {
   totalSeasons: number
   totalEpisodes: number
   image: string
+  hasLiked: boolean
+  hasWatched: boolean
 }

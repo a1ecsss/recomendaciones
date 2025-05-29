@@ -1,5 +1,5 @@
 // Crear la serie
-MERGE (s:Series {seriesId: '8', name: 'Invincible'})
+MERGE (s:Series {seriesId: '9', name: 'Invincible'})
 ON CREATE SET s.rating = 8.7,
               s.numOfRatings = 500000,
               s.description = 'Mark Grayson es un adolescente normal, excepto por el hecho de que su padre es el superhéroe más poderoso del planeta, Omni-Man. A medida que desarrolla sus propios poderes, Mark debe enfrentarse a las duras realidades de ser un héroe.',
@@ -11,21 +11,31 @@ ON CREATE SET s.rating = 8.7,
 
 // MERGE de géneros
 MERGE (g1:Genre {name: 'Animation'})
-MERGE (g2:Genre {name: 'Superheroes'})
+MERGE (g2:Genre {name: 'Science Fiction'})
+MERGE (g3:Genre {name: 'Action'})
+MERGE (g4:Genre {name: 'Drama'})
+MERGE (g5:Genre {name: 'Superhero'})
 
 // Relacionar géneros
 MERGE (s)-[:BELONGS_TO]->(g1)
 MERGE (s)-[:BELONGS_TO]->(g2)
+MERGE (s)-[:BELONGS_TO]->(g3)
+MERGE (s)-[:BELONGS_TO]->(g4)
+MERGE (s)-[:BELONGS_TO]->(g5)
 
 // MERGE de tags
 MERGE (t1:Tag {name: 'Action'})
 MERGE (t2:Tag {name: 'Drama'})
 MERGE (t3:Tag {name: 'Science Fiction'})
+MERGE (t4:Tag {name: 'Superhero'})
+MERGE (t5:Tag {name: 'Animation'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
 MERGE (s)-[:HAS_TAG]->(t2)
 MERGE (s)-[:HAS_TAG]->(t3)
+MERGE (s)-[:HAS_TAG]->(t4)
+MERGE (s)-[:HAS_TAG]->(t5)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

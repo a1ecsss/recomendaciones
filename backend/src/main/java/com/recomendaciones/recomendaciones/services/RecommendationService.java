@@ -69,26 +69,6 @@ public class RecommendationService {
         return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Database Initialized", null);
     }
 
-    public HttpResponse<String> getRecommendedSeries(String name) {
-        try {
-            String cypherQuery = fileReaderService.readQueryFile("knn-algorithm");
-
-            try (Session session = neo4jDriver.session()) {
-                Map<String, Object> params = Map.of("name", name);
-                Result result = session.run(cypherQuery, params);
-                if (result.hasNext()) {
-                    String recommendedSeries = result.next().get("RecommendedSeries").asString();
-                    return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Recommendations found", recommendedSeries);
-                } else {
-                    return new HttpResponse<>(HttpResponse.Status.FAIL, "No recommendations found", null);
-                }
-            }
-
-        } catch (Exception e) {
-            return new HttpResponse<>(HttpResponse.Status.ERROR, "Error executing the query: " + e.getMessage(), null);
-        }
-    }
-
     public HttpResponse<Void> toggleWatchedOrLiked(UserSeriesRequest info, boolean type) { // true para HAS_LIKED, false para HAS_WATCHED
         try {
             String cypherQuery = type
@@ -105,9 +85,9 @@ public class RecommendationService {
                 Result result = session.run(cypherQuery, params);
 
                 if (result.hasNext()) {
-                    return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Relationship toggled successfully", null);
+                    return new HttpResponse<>(HttpResponse.Status.SUCCESS, "Relationship " + (type? "HAS_LIKED" : "HAS_WATCHED") + " toggled successfully", null);
                 } else {
-                    return new HttpResponse<>(HttpResponse.Status.FAIL, "Couldn't toggle the relationship", null);
+                    return new HttpResponse<>(HttpResponse.Status.FAIL, "Couldn't toggle " + (type? "HAS_LIKED" : "HAS_WATCHED") + " relationship", null);
                 }
             }
 
@@ -197,9 +177,6 @@ public class RecommendationService {
                     series.setTotalSeasons(record.get("totalSeasons").asInt());
                     series.setTotalEpisodes(record.get("totalEpisodes").asInt());
                     series.setImage(record.get("image").asString());
-                    if (record.containsKey("totalScore")) {
-                        series.setTotalScore(record.get("totalScore").asDouble());
-                    }
                     seriesList.add(series);
                 }
                 Series[] seriesArray = seriesList.toArray(new Series[0]);
@@ -212,11 +189,12 @@ public class RecommendationService {
         }
     }
 
-    public HttpResponse<Series[]> getAllSeries() {
+    public HttpResponse<Series[]> getAllSeries(String userId) {
         try {
             String cypherQuery = fileReaderService.readQueryFile("selectAllSeries");
             try (Session session = neo4jDriver.session()) {
-                Result result = session.run(cypherQuery);
+                Map<String, Object> params = Map.of("userId", userId);
+                Result result = session.run(cypherQuery, params);
                 List<Series> seriesList = new ArrayList<>();
                 while (result.hasNext()) {
                     Record record = result.next();
@@ -231,6 +209,8 @@ public class RecommendationService {
                     series.setTotalSeasons(record.get("totalSeasons").asInt());
                     series.setTotalEpisodes(record.get("totalEpisodes").asInt());
                     series.setImage(record.get("image").asString());
+                    series.sethasLiked(record.get("hasLiked").asBoolean());
+                    series.sethasWatched(record.get("hasWatched").asBoolean());
                     seriesList.add(series);
                 }
                 Series[] seriesArray = seriesList.toArray(new Series[0]);

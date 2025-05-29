@@ -32,7 +32,9 @@ MERGE (t3:Tag {name: 'Variant'})
 MERGE (t4:Tag {name: 'TVA'})
 MERGE (t5:Tag {name: 'God of Mischief'})
 MERGE (t6:Tag {name: 'Alternate Timeline'})
-MERGE (t7:Tag {name: 'Marvel Cinematic Universe'})
+MERGE (t7:Tag {name: 'Marvel'})
+MERGE (t8:Tag {name: 'Superhero'})
+MERGE (t9:Tag {name: 'Magic'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
@@ -42,6 +44,8 @@ MERGE (s)-[:HAS_TAG]->(t4)
 MERGE (s)-[:HAS_TAG]->(t5)
 MERGE (s)-[:HAS_TAG]->(t6)
 MERGE (s)-[:HAS_TAG]->(t7)
+MERGE (s)-[:HAS_TAG]->(t8)
+MERGE (s)-[:HAS_TAG]->(t9)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

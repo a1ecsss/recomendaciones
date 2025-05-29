@@ -23,13 +23,6 @@ public class QueryController {
     @Autowired //inyeccion del servicio de consulta a la base de datos neo4j
     private RecommendationService recommendationService;
 
-    @GetMapping("/getRecommendedSeries")
-    public HttpResponse<String> getRecommendedSeries(@RequestParam String name) {
-        //llamar al servicio para obtener las recomendaciones y retornarlas
-        System.out.println("name: "+ name);
-        return recommendationService.getRecommendedSeries(name);
-    }
-
     @PostMapping("/initializeDatabase")
     public HttpResponse<String> initializeDatabase() {
         // Llamar a servicio para inicializar la base de datos
@@ -67,7 +60,9 @@ public class QueryController {
     }
 
     @GetMapping("/getAllSeries")
-    public HttpResponse<Series[]> getAllSeries() {
-        return recommendationService.getAllSeries();
+    public HttpResponse<Series[]> getAllSeries(
+        @RequestParam("userId") String userId
+    ) {
+        return recommendationService.getAllSeries(userId);
     }
 }

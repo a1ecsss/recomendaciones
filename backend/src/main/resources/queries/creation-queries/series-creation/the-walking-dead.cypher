@@ -33,6 +33,10 @@ MERGE (t4:Tag {name: 'Group Dynamics'})
 MERGE (t5:Tag {name: 'Moral Dilemmas'})
 MERGE (t6:Tag {name: 'Leadership'})
 MERGE (t7:Tag {name: 'Human Conflict'})
+MERGE (t8:Tag {name: 'Trauma'})
+MERGE (t9:Tag {name: 'Drama'})
+MERGE (t10:Tag {name: 'Horror'})
+MERGE (t11:Tag {name: 'Psychological'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
@@ -42,6 +46,10 @@ MERGE (s)-[:HAS_TAG]->(t4)
 MERGE (s)-[:HAS_TAG]->(t5)
 MERGE (s)-[:HAS_TAG]->(t6)
 MERGE (s)-[:HAS_TAG]->(t7)
+MERGE (s)-[:HAS_TAG]->(t8)
+MERGE (s)-[:HAS_TAG]->(t9)
+MERGE (s)-[:HAS_TAG]->(t10)
+MERGE (s)-[:HAS_TAG]->(t11)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

@@ -11,7 +11,7 @@ ON CREATE SET s.rating = 8.6,
 
 // MERGE de géneros
 MERGE (g1:Genre {name: 'Science Fiction'})
-MERGE (g2:Genre {name: 'Post-apocalyptic'})
+MERGE (g2:Genre {name: 'Post-Apocalyptic'})
 MERGE (g3:Genre {name: 'Drama'})
 MERGE (g4:Genre {name: 'Action'})
 MERGE (g5:Genre {name: 'Western'})
@@ -31,6 +31,7 @@ MERGE (t4:Tag {name: 'Mutants'})
 MERGE (t5:Tag {name: 'Wasteland'})
 MERGE (t6:Tag {name: 'Power Armor'})
 MERGE (t7:Tag {name: 'Survival'})
+MERGE (t8:Tag {name: 'Post-Apocalyptic'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
@@ -40,6 +41,7 @@ MERGE (s)-[:HAS_TAG]->(t4)
 MERGE (s)-[:HAS_TAG]->(t5)
 MERGE (s)-[:HAS_TAG]->(t6)
 MERGE (s)-[:HAS_TAG]->(t7)
+MERGE (s)-[:HAS_TAG]->(t8)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

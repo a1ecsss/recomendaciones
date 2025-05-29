@@ -3,6 +3,9 @@ import { CommonModule } from "@angular/common"
 import type { Series } from "../../models/series.model"
 import { SeriesCardComponent } from "../series-card/series-card.component"
 import { ResponseService } from "../../services/response-namagment.service"
+import { SessionService } from "../../services/session.service"
+import { UserSeriesRequest } from "../../models/UserSeriesRequest"
+
 
 @Component({
   selector: "app-series",
@@ -17,7 +20,9 @@ export class SeriesComponent implements OnInit {
   series: Series[] = []
   pageTitle = ""
 
-  constructor(private responseService: ResponseService) {
+  constructor(private responseService: ResponseService,
+    private sessionService: SessionService
+  ) {
     console.log('semen')
   }
 
@@ -28,7 +33,7 @@ export class SeriesComponent implements OnInit {
   }
 
   async fetchSeries(){
-    const result = await this.responseService.manageAnswerGet<Series[]>('getAllSeries',{});
+    const result = await this.responseService.manageAnswerGet<Series[]>(this.pageType === "dashboard" ? 'getAllSeries': 'recomendedSeries',{userId: this.sessionService.getCurrentUser()?.userId});
     console.log(result)
     if(result.status == 'SUCCESS'){
       this.series = result.value;
@@ -36,6 +41,7 @@ export class SeriesComponent implements OnInit {
   }
 
   ngOnChanges() {
+    console.log("changes")
     this.updateContent()
   }
 
@@ -46,7 +52,33 @@ export class SeriesComponent implements OnInit {
   }
 
   onSeriesAction(event: { seriesId: string; action: "liked" | "watched" }) {
-    console.log(`Serie ${event.seriesId} marcada como ${event.action}`)
+    event.action == 'liked' ? this.onLiked(event.seriesId) : this.onWatched(event.seriesId)
+  }
+
+  async onLiked(seriesId: string){
+    const user = this.sessionService.getCurrentUser();
+    const serie = this.series.find(s => s.seriesId === seriesId);
+    if(user && serie){
+      serie.hasLiked = !serie?.hasLiked
+      const result = await this.responseService.manageAnswerPost<UserSeriesRequest, null>('hasLiked', {userId: user.userId, seriesId: seriesId})
+      //console.log(result)
+      if(result.status!='SUCCESS'){
+        serie.hasLiked = !serie?.hasLiked
+      }
+    }
+  }
+
+  async onWatched(seriesId: string){
+    const user = this.sessionService.getCurrentUser();
+    const serie = this.series.find(s => s.seriesId === seriesId);
+    if(user && serie){
+      serie.hasWatched = !serie?.hasWatched
+      const result = await this.responseService.manageAnswerPost<UserSeriesRequest, null>('hasWatched', {userId: user.userId, seriesId: seriesId})
+      //console.log(result)
+      if(result.status!='SUCCESS'){
+        serie.hasWatched = !serie?.hasWatched
+      }
+    }
   }
 
 

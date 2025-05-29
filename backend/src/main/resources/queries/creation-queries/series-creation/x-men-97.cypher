@@ -31,6 +31,7 @@ MERGE (t4:Tag {name: 'Prejudice'})
 MERGE (t5:Tag {name: 'Redemption'})
 MERGE (t6:Tag {name: 'Legacy'})
 MERGE (t7:Tag {name: 'Animated Series'})
+MERGE (t8:Tag {name: 'Superhero'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
@@ -40,6 +41,7 @@ MERGE (s)-[:HAS_TAG]->(t4)
 MERGE (s)-[:HAS_TAG]->(t5)
 MERGE (s)-[:HAS_TAG]->(t6)
 MERGE (s)-[:HAS_TAG]->(t7)
+MERGE (s)-[:HAS_TAG]->(t8)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

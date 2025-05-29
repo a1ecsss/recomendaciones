@@ -31,8 +31,10 @@ MERGE (t2:Tag {name: 'Survival'})
 MERGE (t3:Tag {name: 'Fungal Infection'})
 MERGE (t4:Tag {name: 'Father-Daughter Relationship'})
 MERGE (t5:Tag {name: 'Moral Dilemma'})
-MERGE (t6:Tag {name: 'Post-Apocalyptic World'})
-MERGE (t7:Tag {name: 'Video Game Adaptation'})
+MERGE (t6:Tag {name: 'Post-Apocalyptic'})
+MERGE (t7:Tag {name: 'Trauma'})
+MERGE (t8:Tag {name: 'Drama'})
+MERGE (t9:Tag {name: 'Addiction'})
 
 // Relacionar tags
 MERGE (s)-[:HAS_TAG]->(t1)
@@ -42,6 +44,8 @@ MERGE (s)-[:HAS_TAG]->(t4)
 MERGE (s)-[:HAS_TAG]->(t5)
 MERGE (s)-[:HAS_TAG]->(t6)
 MERGE (s)-[:HAS_TAG]->(t7)
+MERGE (s)-[:HAS_TAG]->(t8)
+MERGE (s)-[:HAS_TAG]->(t9)
 
 // MERGE de idioma
 MERGE (l:Language {name: 'English'})

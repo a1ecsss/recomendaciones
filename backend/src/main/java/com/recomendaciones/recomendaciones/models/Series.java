@@ -15,7 +15,9 @@ public class Series {
     private int totalSeasons;
     private int totalEpisodes;
     private String image;
-    private double totalScore; // Este es el puntaje calculado por el algoritmo
+
+    private boolean hasLiked;
+    private boolean hasWatched;
 
     // Getters y Setters
     public String getSeriesId() {
@@ -98,12 +100,20 @@ public class Series {
         this.image = image;
     }
 
-    public double getTotalScore() {
-        return totalScore;
+    public Boolean gethasLiked() {
+        return hasLiked;
     }
 
-    public void setTotalScore(double totalScore) {
-        this.totalScore = totalScore;
+    public void sethasLiked(boolean hasLiked) {
+        this.hasLiked = hasLiked;
+    }
+
+    public boolean gethasWatched() {
+        return hasWatched;
+    }
+
+    public void sethasWatched(boolean hasWatched) {
+        this.hasWatched = hasWatched;
     }
 }
 

@@ -168,12 +168,12 @@
 }
 
 .btn-watched {
-  background: rgba(0, 191, 255, 0.9);
+  background: rgba(40, 40, 40, 0.9);
   color: #ffffff;
 }
 
 .btn-watched:hover {
-  background: #00bfff;
+  background: #444444;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 191, 255, 0.4);
 }
