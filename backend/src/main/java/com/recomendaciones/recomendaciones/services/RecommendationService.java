@@ -32,8 +32,10 @@ public class RecommendationService {
 
     public HttpResponse<String> initializeDatabase() {
         List<String> queryFiles = List.of(
+            "creation-queries/series-creation/ahsoka",
             "creation-queries/series-creation/arcane",
             "creation-queries/series-creation/breaking-bad",
+            "creation-queries/series-creation/brooklyn99",
             "creation-queries/series-creation/chernobyl",
             "creation-queries/series-creation/daredevil",
             "creation-queries/series-creation/fall-out",
@@ -42,13 +44,19 @@ public class RecommendationService {
             "creation-queries/series-creation/hawkeye",
             "creation-queries/series-creation/invincible",
             "creation-queries/series-creation/loki",
+            "creation-queries/series-creation/moon-knight",
+            "creation-queries/series-creation/on-my-block",
+            "creation-queries/series-creation/peacemaker",
             "creation-queries/series-creation/peaky-blinders",
             "creation-queries/series-creation/penny-dreadful",
             "creation-queries/series-creation/star-wars-the-clone-wars",
+            "creation-queries/series-creation/suits",
             "creation-queries/series-creation/the-boys",
+            "creation-queries/series-creation/the-chosen",
             "creation-queries/series-creation/the-dark-crystal",
             "creation-queries/series-creation/the-last-of-us",
             "creation-queries/series-creation/the-mandalorian",
+            "creation-queries/series-creation/the-penguin",
             "creation-queries/series-creation/the-queens-gambit",
             "creation-queries/series-creation/the-walking-dead",
             "creation-queries/series-creation/x-men-97"
